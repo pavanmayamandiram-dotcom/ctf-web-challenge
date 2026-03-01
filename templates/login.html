@@ -1,62 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Offenzo CTF - Login</title>
+    <title>Offenzo CTF | Secure Login</title>
 
     <style>
         body {
             margin: 0;
-            padding: 0;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', monospace;
             background: black;
+            color: #00ff99;
+            overflow: hidden;
         }
 
         canvas {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 0;
+            z-index: -1;
         }
 
-        .login-box {
+        .container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0,0,0,0.8);
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 0 20px #00ff00;
+            box-shadow: 0 0 25px #00ff99;
+            width: 400px;
             text-align: center;
-            z-index: 1;
-            color: white;
-            width: 320px;
         }
 
-        .login-box h2 {
+        h1 {
+            color: #00ff99;
+            margin-bottom: 10px;
+        }
+
+        .welcome {
             margin-bottom: 20px;
-            color: #00ff00;
+            font-size: 14px;
+            color: #00cc88;
         }
 
         input {
-            width: 100%;
+            width: 90%;
             padding: 10px;
             margin: 10px 0;
-            border: none;
+            background: black;
+            border: 1px solid #00ff99;
+            color: #00ff99;
             border-radius: 5px;
         }
 
         input[type="submit"] {
-            background: #00ff00;
+            background: #00ff99;
             color: black;
             font-weight: bold;
             cursor: pointer;
         }
 
+        input[type="submit"]:hover {
+            background: #00cc88;
+        }
+
         .error {
             color: red;
             margin-bottom: 10px;
+        }
+
+        .hacker {
+            width: 120px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
     </style>
 </head>
@@ -64,56 +85,64 @@
 
 <canvas id="matrix"></canvas>
 
-<div class="login-box">
-    <h2>Offenzo CTF</h2>
+<div class="container">
+
+    <img src="https://i.imgur.com/6X4J7bK.png" class="hacker">
+
+    <h1>OFFENZO CTF</h1>
+
+    <div class="welcome">
+        Welcome to Offenzo Cyber Security Platform.<br>
+        Test your hacking skills. Break the logic. Capture the flag.<br><br>
+        Please login to continue.
+    </div>
 
     {% if error %}
         <div class="error">{{ error }}</div>
     {% endif %}
 
     <form method="POST">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" value="Login">
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <input type="submit" value="ACCESS SYSTEM">
     </form>
+
 </div>
 
 <script>
-    var canvas = document.getElementById("matrix");
-    var ctx = canvas.getContext("2d");
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
 
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 
-    var letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    letters = letters.split("");
+    const letters = "01OFFENZOCTF";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
 
-    var fontSize = 14;
-    var columns = canvas.width / fontSize;
-
-    var drops = [];
-    for (var x = 0; x < columns; x++)
+    const drops = [];
+    for(let x = 0; x < columns; x++)
         drops[x] = 1;
 
-    function draw() {
+    function draw(){
         ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = "#00ff00";
+        ctx.fillStyle = "#00ff99";
         ctx.font = fontSize + "px monospace";
 
-        for (var i = 0; i < drops.length; i++) {
-            var text = letters[Math.floor(Math.random() * letters.length)];
+        for(let i = 0; i < drops.length; i++){
+            const text = letters.charAt(Math.floor(Math.random() * letters.length));
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+            if(drops[i] * fontSize > canvas.height && Math.random() > 0.975)
                 drops[i] = 0;
 
             drops[i]++;
         }
     }
 
-    setInterval(draw, 33);
+    setInterval(draw, 80);  // Slow speed
 </script>
 
 </body>
