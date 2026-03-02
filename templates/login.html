@@ -1,148 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Offenzo CTF | Secure Login</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Courier New', monospace;
-            background: black;
-            color: #00ff99;
-            overflow: hidden;
-        }
-
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.8);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 25px #00ff99;
-            width: 400px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #00ff99;
-            margin-bottom: 10px;
-        }
-
-        .welcome {
-            margin-bottom: 20px;
-            font-size: 14px;
-            color: #00cc88;
-        }
-
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            background: black;
-            border: 1px solid #00ff99;
-            color: #00ff99;
-            border-radius: 5px;
-        }
-
-        input[type="submit"] {
-            background: #00ff99;
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background: #00cc88;
-        }
-
-        .error {
-            color: red;
-            margin-bottom: 10px;
-        }
-
-        .hacker {
-            width: 120px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-    </style>
+    <!-- Connect CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
 
-<canvas id="matrix"></canvas>
+    <!-- Matrix Background -->
+    <canvas id="matrix"></canvas>
 
-<div class="container">
+    <!-- Main Container -->
+    <div class="container">
 
-    <img src="https://i.imgur.com/6X4J7bK.png" class="hacker">
+        <!-- Hacker Character -->
+        <div class="character-section">
+            <img src="{{ url_for('static', filename='images/hacker.png') }}" class="hacker-img">
 
-    <h1>OFFENZO CTF</h1>
+            <div class="speech">
+                👋 Hi, Welcome to Offenzo CTF<br>
+                Break the logic. Capture the flag.
+            </div>
+        </div>
 
-    <div class="welcome">
-        Welcome to Offenzo Cyber Security Platform.<br>
-        Test your hacking skills. Break the logic. Capture the flag.<br><br>
-        Please login to continue.
+        <!-- Login Box -->
+        <div class="login-box">
+
+            <h1>OFFENZO CTF</h1>
+            <p class="subtitle">Cyber Security Challenge Platform</p>
+
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">ACCESS SYSTEM</button>
+            </form>
+
+        </div>
     </div>
 
-    {% if error %}
-        <div class="error">{{ error }}</div>
-    {% endif %}
-
-    <form method="POST">
-        <input type="text" name="username" placeholder="Username" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
-        <input type="submit" value="ACCESS SYSTEM">
-    </form>
-
-</div>
 
 <script>
-    const canvas = document.getElementById("matrix");
-    const ctx = canvas.getContext("2d");
+/* MATRIX ANIMATION */
 
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
 
-    const letters = "01OFFENZOCTF";
-    const fontSize = 16;
-    const columns = canvas.width / fontSize;
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
 
-    const drops = [];
-    for(let x = 0; x < columns; x++)
-        drops[x] = 1;
+const letters = "01OFFENZOCTF";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
 
-    function draw(){
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+const drops = [];
 
-        ctx.fillStyle = "#00ff99";
-        ctx.font = fontSize + "px monospace";
+for (let x = 0; x < columns; x++)
+    drops[x] = 1;
 
-        for(let i = 0; i < drops.length; i++){
-            const text = letters.charAt(Math.floor(Math.random() * letters.length));
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+function draw() {
 
-            if(drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-                drops[i] = 0;
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            drops[i]++;
-        }
+    ctx.fillStyle = "#00ff88";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+            drops[i] = 0;
+
+        drops[i]++;
     }
+}
 
-    setInterval(draw, 80);  // Slow speed
+setInterval(draw, 45); // slower effect
 </script>
 
 </body>
