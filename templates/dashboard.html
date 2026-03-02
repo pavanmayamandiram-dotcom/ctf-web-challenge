@@ -1,159 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Offenzo CTF | Dashboard</title>
+{% extends "base.html" %}
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Courier New', monospace;
-            background: black;
-            color: #00ff99;
-            overflow-x: hidden;
-        }
+{% block content %}
 
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
+<div class="dashboard">
+    <h1>OFFENZO CTF - Dashboard</h1>
+    <p class="subtitle">Select Your Challenge</p>
 
-        .header {
-            padding: 30px 50px;
-        }
+    <div class="cards">
 
-        h1 {
-            margin: 0;
-            font-size: 32px;
-            text-shadow: 0 0 10px #00ff99;
-        }
+        <div class="card">
+            <h3>1. SQL Injection</h3>
+            <p>Difficulty: Easy</p>
+            <button>Start</button>
+        </div>
 
-        .subtitle {
-            margin-top: 5px;
-            opacity: 0.7;
-        }
+        <div class="card">
+            <h3>2. XSS Attack</h3>
+            <p>Difficulty: Medium</p>
+            <button>Start</button>
+        </div>
 
-        .logout {
-            position: absolute;
-            top: 30px;
-            right: 50px;
-            background: #00ff99;
-            color: black;
-            border: none;
-            padding: 8px 15px;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 5px;
-        }
+        <div class="card">
+            <h3>3. Cryptography Vault</h3>
+            <p>Difficulty: Medium</p>
+            <button>Start</button>
+        </div>
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            padding: 40px 50px;
-        }
+        <div class="card">
+            <h3>4. API Misconfiguration</h3>
+            <p>Difficulty: Hard</p>
+            <button>Start</button>
+        </div>
 
-        .card {
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #00ff99;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px #00ff99;
-            transition: 0.3s;
-        }
+        <div class="card">
+            <h3>5. Reverse Engineering</h3>
+            <p>Difficulty: Expert</p>
+            <button>Start</button>
+        </div>
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 25px #00ff99;
-        }
-
-        .difficulty {
-            opacity: 0.8;
-            margin: 10px 0;
-        }
-
-        .btn {
-            background: #00ff99;
-            color: black;
-            border: none;
-            padding: 8px 14px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .locked {
-            background: gray;
-            cursor: not-allowed;
-        }
-    </style>
-</head>
-
-<body>
-
-<canvas id="matrixCanvas"></canvas>
-
-<div class="header">
-    <h1>OFFENZO CTF</h1>
-    <div class="subtitle">Welcome to the Cyber Range</div>
+    </div>
 </div>
 
-<button class="logout">Logout</button>
-
-<div class="grid">
-
-    <div class="card">
-        <h3>1. Broken Access Control</h3>
-        <div class="difficulty">Difficulty: Easy</div>
-        <button class="btn">Start</button>
-    </div>
-
-    <div class="card">
-        <h3>2. SQL Injection</h3>
-        <div class="difficulty">Difficulty: Medium</div>
-        <button class="btn locked">Locked</button>
-    </div>
-
-    <div class="card">
-        <h3>3. XSS Lab</h3>
-        <div class="difficulty">Difficulty: Medium</div>
-        <button class="btn locked">Locked</button>
-    </div>
-
-    <div class="card">
-        <h3>4. File Inclusion</h3>
-        <div class="difficulty">Difficulty: Hard</div>
-        <button class="btn locked">Locked</button>
-    </div>
-
-    <div class="card">
-        <h3>5. Admin Portal</h3>
-        <div class="difficulty">Difficulty: Hard</div>
-        <button class="btn locked">Locked</button>
-    </div>
-
-    <div class="card">
-        <h3>6. Cryptography Vault</h3>
-        <div class="difficulty">Difficulty: Medium</div>
-        <button class="btn locked">Locked</button>
-    </div>
-
-    <div class="card">
-        <h3>7. API Misconfiguration</h3>
-        <div class="difficulty">Difficulty: Hard</div>
-        <button class="btn locked">Locked</button>
-    </div>
-
-    <div class="card">
-        <h3>8. Reverse Engineering</h3>
-        <div class="difficulty">Difficulty: Expert</div>
-        <button class="btn locked">Locked</button>
-    </div>
-
-</div>
-
-<script src="{{ url_for('static', filename='js/matrix.js') }}"></script>
-
-</body>
-</html>
+{% endblock %}
