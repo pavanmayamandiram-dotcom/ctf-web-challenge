@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Offenzo CTF | Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="dashboard-container">
+
+    <div class="top-bar">
+        <h1>OFFENZO CTF</h1>
+        <a href="/" class="logout-btn">Logout</a>
+    </div>
+
+    <h2 class="welcome">Welcome to the Cyber Range</h2>
+
+    <div class="challenge-grid">
+
+        <a href="/challenge1" class="challenge-card">
+            <h3>1️⃣ Broken Access Control</h3>
+            <p>Difficulty: Easy</p>
+            <span class="active">ACTIVE</span>
+        </a>
+
+        <div class="challenge-card locked">
+            <h3>2️⃣ SQL Injection Advanced</h3>
+            <p>Difficulty: Medium</p>
+            <span>LOCKED</span>
+        </div>
+
+        <div class="challenge-card locked">
+            <h3>3️⃣ XSS Lab</h3>
+            <p>Difficulty: Medium</p>
+            <span>LOCKED</span>
+        </div>
+
+        <div class="challenge-card locked">
+            <h3>4️⃣ File Inclusion</h3>
+            <p>Difficulty: Hard</p>
+            <span>LOCKED</span>
+        </div>
+
+        <div class="challenge-card locked">
+            <h3>5️⃣ Admin Portal</h3>
+            <p>Difficulty: Hard</p>
+            <span>LOCKED</span>
+        </div>
+
+        <div class="challenge-card locked">
+            <h3>6️⃣ Cryptography Vault</h3>
+            <p>Difficulty: Medium</p>
+            <span>LOCKED</span>
+        </div>
+
+        <div class="challenge-card locked">
+            <h3>7️⃣ API Misconfiguration</h3>
+            <p>Difficulty: Hard</p>
+            <span>LOCKED</span>
+        </div>
+
+        <div class="challenge-card locked">
+            <h3>8️⃣ Reverse Engineering</h3>
+            <p>Difficulty: Expert</p>
+            <span>LOCKED</span>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+const letters = "01OFFENZOCTF";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+
+const drops = [];
+for(let x = 0; x < columns; x++)
+    drops[x] = 1;
+
+function draw() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.07)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#00ff99";
+    ctx.font = fontSize + "px monospace";
+
+    for(let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if(drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+            drops[i] = 0;
+
+        drops[i]++;
+    }
+}
+
+setInterval(draw, 45);
+</script>
+
+</body>
+</html>
