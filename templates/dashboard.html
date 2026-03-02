@@ -2,111 +2,167 @@
 <html>
 <head>
     <title>Offenzo CTF | Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
 
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Courier New", monospace;
+            background: #050505;
+            color: #00ff99;
+            overflow-x: hidden;
+        }
+
+        /* MATRIX CANVAS */
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px #00ff99;
+        }
+
+        .subtitle {
+            margin-bottom: 40px;
+            color: #00ffaa;
+        }
+
+        /* CHALLENGE GRID */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid #00ff99;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,255,150,0.2);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px #00ff99;
+        }
+
+        .difficulty {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .btn {
+            background: #00ff99;
+            color: black;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .locked {
+            background: #222;
+            color: #888;
+            border: 1px solid #444;
+        }
+
+        .top-right {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+
+        .logout {
+            background: #00ff99;
+            color: black;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
 <body>
 
-<canvas id="matrix"></canvas>
+<canvas id="matrixCanvas"></canvas>
 
-<div class="dashboard-container">
-
-    <div class="top-bar">
-        <h1>OFFENZO CTF</h1>
-        <a href="/" class="logout-btn">Logout</a>
-    </div>
-
-    <h2 class="welcome">Welcome to the Cyber Range</h2>
-
-    <div class="challenge-grid">
-
-        <a href="/challenge1" class="challenge-card">
-            <h3>1️⃣ Broken Access Control</h3>
-            <p>Difficulty: Easy</p>
-            <span class="active">ACTIVE</span>
-        </a>
-
-        <div class="challenge-card locked">
-            <h3>2️⃣ SQL Injection Advanced</h3>
-            <p>Difficulty: Medium</p>
-            <span>LOCKED</span>
-        </div>
-
-        <div class="challenge-card locked">
-            <h3>3️⃣ XSS Lab</h3>
-            <p>Difficulty: Medium</p>
-            <span>LOCKED</span>
-        </div>
-
-        <div class="challenge-card locked">
-            <h3>4️⃣ File Inclusion</h3>
-            <p>Difficulty: Hard</p>
-            <span>LOCKED</span>
-        </div>
-
-        <div class="challenge-card locked">
-            <h3>5️⃣ Admin Portal</h3>
-            <p>Difficulty: Hard</p>
-            <span>LOCKED</span>
-        </div>
-
-        <div class="challenge-card locked">
-            <h3>6️⃣ Cryptography Vault</h3>
-            <p>Difficulty: Medium</p>
-            <span>LOCKED</span>
-        </div>
-
-        <div class="challenge-card locked">
-            <h3>7️⃣ API Misconfiguration</h3>
-            <p>Difficulty: Hard</p>
-            <span>LOCKED</span>
-        </div>
-
-        <div class="challenge-card locked">
-            <h3>8️⃣ Reverse Engineering</h3>
-            <p>Difficulty: Expert</p>
-            <span>LOCKED</span>
-        </div>
-
-    </div>
-
+<div class="top-right">
+    <a href="/logout" class="logout">Logout</a>
 </div>
 
-<script>
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+<div class="container">
 
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
+    <h1>OFFENZO CTF</h1>
+    <div class="subtitle">Welcome to the Cyber Range</div>
 
-const letters = "01OFFENZOCTF";
-const fontSize = 14;
-const columns = canvas.width / fontSize;
+    <div class="grid">
 
-const drops = [];
-for(let x = 0; x < columns; x++)
-    drops[x] = 1;
+        <div class="card">
+            <h3>1. Broken Access Control</h3>
+            <div class="difficulty">Difficulty: Easy</div>
+            <button class="btn">Start</button>
+        </div>
 
-function draw() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.07)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+        <div class="card">
+            <h3>2. SQL Injection</h3>
+            <div class="difficulty">Difficulty: Medium</div>
+            <button class="btn locked">Locked</button>
+        </div>
 
-    ctx.fillStyle = "#00ff99";
-    ctx.font = fontSize + "px monospace";
+        <div class="card">
+            <h3>3. XSS Lab</h3>
+            <div class="difficulty">Difficulty: Medium</div>
+            <button class="btn locked">Locked</button>
+        </div>
 
-    for(let i = 0; i < drops.length; i++) {
-        const text = letters.charAt(Math.floor(Math.random() * letters.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        <div class="card">
+            <h3>4. File Inclusion</h3>
+            <div class="difficulty">Difficulty: Hard</div>
+            <button class="btn locked">Locked</button>
+        </div>
 
-        if(drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-            drops[i] = 0;
+        <div class="card">
+            <h3>5. Admin Portal</h3>
+            <div class="difficulty">Difficulty: Hard</div>
+            <button class="btn locked">Locked</button>
+        </div>
 
-        drops[i]++;
-    }
-}
+        <div class="card">
+            <h3>6. Cryptography Vault</h3>
+            <div class="difficulty">Difficulty: Medium</div>
+            <button class="btn locked">Locked</button>
+        </div>
 
-setInterval(draw, 45);
-</script>
+        <div class="card">
+            <h3>7. API Misconfiguration</h3>
+            <div class="difficulty">Difficulty: Hard</div>
+            <button class="btn locked">Locked</button>
+        </div>
+
+        <div class="card">
+            <h3>8. Reverse Engineering</h3>
+            <div class="difficulty">Difficulty: Expert</div>
+            <button class="btn locked">Locked</button>
+        </div>
+
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/matrix.js') }}"></script>
 
 </body>
 </html>
