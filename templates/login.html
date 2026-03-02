@@ -1,40 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Offenzo CTF | Secure Login</title>
-
-    <!-- Connect CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-    <!-- Matrix Background -->
-    <canvas id="matrix"></canvas>
+<canvas id="matrix"></canvas>
 
-    <!-- Main Container -->
-    <div class="container">
+<div class="main-container">
 
-        <!-- Hacker Character -->
-        <div class="character-section">
-            <img src="{{ url_for('static', filename='images/hacker.png') }}" class="hacker-img">
+    <!-- LEFT SIDE -->
+    <div class="left-section">
+        <img src="{{ url_for('static', filename='images/hacker.png') }}" class="hacker-img">
 
-            <div class="speech">
-                👋 Hi, Welcome to Offenzo CTF<br>
-                Break the logic. Capture the flag.
-            </div>
+        <div class="speech">
+            👋 Hi, Welcome to Offenzo CTF <br>
+            Break the logic. Capture the flag.
         </div>
+    </div>
 
-        <!-- Login Box -->
+    <!-- RIGHT SIDE -->
+    <div class="right-section">
         <div class="login-box">
-
             <h1>OFFENZO CTF</h1>
-            <p class="subtitle">Cyber Security Challenge Platform</p>
-
-            {% if error %}
-                <div class="error">{{ error }}</div>
-            {% endif %}
+            <p>Cyber Security Challenge Platform</p>
 
             <form method="POST">
                 <input type="text" name="username" placeholder="Username" required>
@@ -42,13 +33,15 @@
                 <button type="submit">ACCESS SYSTEM</button>
             </form>
 
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
         </div>
     </div>
 
+</div>
 
 <script>
-/* MATRIX ANIMATION */
-
 const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
 
@@ -56,35 +49,32 @@ canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 
 const letters = "01OFFENZOCTF";
-const fontSize = 14;
+const fontSize = 16;
 const columns = canvas.width / fontSize;
 
 const drops = [];
-
-for (let x = 0; x < columns; x++)
+for(let x = 0; x < columns; x++)
     drops[x] = 1;
 
 function draw() {
-
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "#00ff88";
+    ctx.fillStyle = "#00ff99";
     ctx.font = fontSize + "px monospace";
 
-    for (let i = 0; i < drops.length; i++) {
-
-        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+    for(let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+        if(drops[i] * fontSize > canvas.height && Math.random() > 0.975)
             drops[i] = 0;
 
         drops[i]++;
     }
 }
 
-setInterval(draw, 45); // slower effect
+setInterval(draw, 40);
 </script>
 
 </body>
