@@ -1,26 +1,18 @@
 {% extends "base.html" %}
-
 {% block content %}
-
-<div class="login-box">
-    <h2>Create Account</h2>
-
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <p style="color:red;">{{ messages[0] }}</p>
-        {% endif %}
-    {% endwith %}
-
-    <form method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Register</button>
-    </form>
-
-    <p style="margin-top:15px;">
-        Already have an account?
-        <a href="/" style="color:#00ff99;">Login</a>
-    </p>
+<div class="container">
+    <div class="dashboard-box">
+        <h2>Welcome {{ user }}</h2>
+        <p>Select your challenge:</p>
+        <ul>
+            <li><a href="/game1">Game 1 - Access Control</a></li>
+            <li><a href="/game2">Game 2</a></li>
+            <li><a href="/game3">Game 3</a></li>
+            <li><a href="/game4">Game 4</a></li>
+            <li><a href="/game5">Game 5</a></li>
+            <li><a href="/game6">Game 6</a></li>
+            <li><a href="/game7">Game 7</a></li>
+        </ul>
+    </div>
 </div>
-
 {% endblock %}

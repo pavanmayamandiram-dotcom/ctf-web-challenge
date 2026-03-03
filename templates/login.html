@@ -1,27 +1,23 @@
 {% extends "base.html" %}
-
 {% block content %}
+<div class="container">
 
-<div class="login-box">
-    <h2>OFFENZO CTF</h2>
-    <p style="margin-bottom:20px;">Cyber Security Challenge Platform</p>
+    <div>
+        <div class="speech">
+            Welcome to Offenzo CTF.
+        </div>
+        <img src="{{ url_for('static', filename='images/hacker.png') }}" class="hacker-img">
+    </div>
 
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <p style="color:red;">{{ messages[0] }}</p>
-        {% endif %}
-    {% endwith %}
+    <div class="login-box">
+        <h2>Login</h2>
+        <form method="POST">
+            <input name="username" placeholder="Username" required>
+            <input name="password" type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have account? <a href="/register">Create Account</a></p>
+    </div>
 
-    <form method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">ACCESS SYSTEM</button>
-    </form>
-
-    <p style="margin-top:15px;">
-        Don't have an account?
-        <a href="/register" style="color:#00ff99;">Create Account</a>
-    </p>
 </div>
-
 {% endblock %}
