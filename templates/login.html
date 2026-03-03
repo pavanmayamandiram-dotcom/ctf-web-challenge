@@ -2,15 +2,27 @@
 
 {% block content %}
 
-<div class="login-box">
-    <h2>OFFENZO CTF</h2>
-    <p class="subtitle">Cyber Security Challenge Platform</p>
+<div class="cinema-container">
 
-    <form method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">ACCESS SYSTEM</button>
-    </form>
+    <!-- LEFT SIDE HACKER -->
+    <div class="left-side">
+        <img src="{{ url_for('static', filename='images/hacker.png') }}" class="hacker-img">
+    </div>
+
+    <!-- RIGHT SIDE LOGIN PANEL -->
+    <div class="right-side">
+        <div class="login-panel">
+            <h1>OFFENZO CTF</h1>
+            <p>Cyber Security Challenge Platform</p>
+
+            <form method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">ACCESS SYSTEM</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 {% endblock %}
