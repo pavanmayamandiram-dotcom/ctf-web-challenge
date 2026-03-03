@@ -4,10 +4,19 @@
 
 <div class="cinema-container">
 
+    <!-- LEFT SIDE -->
     <div class="left-side">
-        <img src="{{ url_for('static', filename='images/hacker.png') }}" class="hacker-img">
+        <div class="hacker-wrapper">
+            <img src="{{ url_for('static', filename='images/hacker.png') }}" class="hacker-img">
+
+            <!-- Speech Bubble -->
+            <div class="speech-bubble">
+                <span id="typing-text"></span>
+            </div>
+        </div>
     </div>
 
+    <!-- RIGHT SIDE -->
     <div class="right-side">
         <div class="login-panel">
             <h1>OFFENZO CTF</h1>
@@ -22,5 +31,40 @@
     </div>
 
 </div>
+
+<script>
+const messages = [
+    "Initializing secure environment...",
+    "Encrypted channel established.",
+    "Security layer activated.",
+    "Welcome, Challenger.",
+    "Break the Logic.",
+    "Capture the Flag."
+];
+
+let index = 0;
+let charIndex = 0;
+let currentMessage = "";
+const typingElement = document.getElementById("typing-text");
+
+function typeEffect() {
+    if (charIndex < messages[index].length) {
+        currentMessage += messages[index].charAt(charIndex);
+        typingElement.innerHTML = currentMessage;
+        charIndex++;
+        setTimeout(typeEffect, 40);
+    } else {
+        setTimeout(() => {
+            currentMessage = "";
+            charIndex = 0;
+            index = (index + 1) % messages.length;
+            typingElement.innerHTML = "";
+            typeEffect();
+        }, 1500);
+    }
+}
+
+typeEffect();
+</script>
 
 {% endblock %}
