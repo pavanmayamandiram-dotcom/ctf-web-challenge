@@ -2,21 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>OFFENZO CTF</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Offenzo CTF</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
-    <div class="cyber-background">
-        <div class="screen screen1"></div>
-        <div class="screen screen2"></div>
-        <div class="screen screen3"></div>
-        <div class="screen screen4"></div>
-        <div class="screen screen5"></div>
-    </div>
+    <!-- Dark Background -->
+    <div class="bg-layer"></div>
 
-    <div class="main-content">
-        {% block content %}{% endblock %}
+    <div class="layout">
+
+        <!-- LEFT SIDE – Hacker -->
+        <div class="left-side">
+            <img src="{{ url_for('static', filename='images/hacker.png') }}" class="hacker-image">
+        </div>
+
+        <!-- Floating Cyber Panels -->
+        <div class="floating-panel panel-one">
+            <p>> Initializing Secure Environment...</p>
+            <p>> Establishing Encrypted Channel...</p>
+            <p>> Security Layer Activated...</p>
+        </div>
+
+        <div class="floating-panel panel-two">
+            <p>> Welcome, Challenger.</p>
+            <p>> Break the Logic.</p>
+            <p>> Capture the Flag.</p>
+        </div>
+
+        <!-- RIGHT SIDE – Login Area -->
+        <div class="right-side">
+            {% block content %}{% endblock %}
+        </div>
+
     </div>
 
 </body>
