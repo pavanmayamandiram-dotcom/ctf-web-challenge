@@ -59,18 +59,33 @@ def dashboard():
     return render_template("dashboard.html")
 
 
-# ===================== GAME 1 (Cookie Vulnerability) =====================
-@app.route("/game1")
+# ===================== GAME 1 (Improved CTF Flow) =====================
+@app.route("/game1", methods=["GET", "POST"])
 def game1():
     role = request.cookies.get("role")
 
-    is_admin = role == "admin"
-
-    response = make_response(render_template("game1.html", is_admin=is_admin))
-
-    # Set default role
     if not role:
-        response.set_cookie("role", "guest")
+        role = "guest"
+
+    access_granted = False
+    message = "Limited Access"
+
+    if request.method == "POST":
+        if role == "admin":
+            access_granted = True
+            message = "Admin Privileges Confirmed"
+        else:
+            message = "Access Denied - Insufficient Privileges"
+
+    response = make_response(render_template(
+        "game1.html",
+        role=role,
+        access_granted=access_granted,
+        message=message
+    ))
+
+    # Always ensure cookie exists
+    response.set_cookie("role", role)
 
     return response
 
