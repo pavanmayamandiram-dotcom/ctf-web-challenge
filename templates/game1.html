@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Game 1</title>
+    <title>Game 1 - Broken Access Control</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
 
-<script src="{{ url_for('static', filename='js/matrix.js') }}"></script>
+<body style="background:black; color:#00ff88; text-align:center; padding-top:100px;">
 
-<h2>Game 1 - Admin Panel</h2>
+    <h1>🔐 System Access Panel</h1>
 
-{% if is_admin %}
-    <p class="flag">FLAG{cookie_admin_access_success}</p>
-{% else %}
-    <p>Only admins can view the flag.</p>
-    <p style="color:red;">Access Denied.</p>
-{% endif %}
+    <h2>Current Role: {{ role }}</h2>
+    <h3>Status: {{ message }}</h3>
+
+    {% if access_granted %}
+        <div style="margin-top:20px; padding:15px; border:2px solid #00ff88; display:inline-block;">
+            FLAG{broken_access_control_cookie}
+        </div>
+    {% else %}
+        <form method="POST">
+            <button style="padding:10px 20px; margin-top:20px;">
+                Validate Credentials
+            </button>
+        </form>
+    {% endif %}
+
+    <br><br>
+    <a href="/dashboard" style="color:#00ff88;">⬅ Back to Dashboard</a>
 
 </body>
 </html>
