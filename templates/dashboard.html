@@ -2,66 +2,25 @@
 
 {% block content %}
 
-<div class="dashboard">
+<div class="login-box">
+    <h2>Create Account</h2>
 
-    <h1>OFFENZO CTF - Dashboard</h1>
-    <p class="subtitle">Select Your Challenge</p>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p style="color:red;">{{ messages[0] }}</p>
+        {% endif %}
+    {% endwith %}
 
-    <div class="cards">
+    <form method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+    </form>
 
-        <!-- Game 1 -->
-        <div class="card">
-            <h3>1. Broken Access Control</h3>
-            <p>Difficulty: Easy</p>
-            <a href="/game1">
-                <button>Start</button>
-            </a>
-        </div>
-
-        <!-- Game 2 -->
-        <div class="card">
-            <h3>2. XSS Attack</h3>
-            <p>Difficulty: Medium</p>
-            <button>Start</button>
-        </div>
-
-        <!-- Game 3 -->
-        <div class="card">
-            <h3>3. Cryptography Vault</h3>
-            <p>Difficulty: Medium</p>
-            <button>Start</button>
-        </div>
-
-        <!-- Game 4 -->
-        <div class="card">
-            <h3>4. API Misconfiguration</h3>
-            <p>Difficulty: Hard</p>
-            <button>Start</button>
-        </div>
-
-        <!-- Game 5 -->
-        <div class="card">
-            <h3>5. Reverse Engineering</h3>
-            <p>Difficulty: Expert</p>
-            <button>Start</button>
-        </div>
-
-        <!-- Game 6 -->
-        <div class="card">
-            <h3>6. Hidden File Discovery</h3>
-            <p>Difficulty: Medium</p>
-            <button>Start</button>
-        </div>
-
-        <!-- Game 7 -->
-        <div class="card">
-            <h3>7. Logic Bypass</h3>
-            <p>Difficulty: Hard</p>
-            <button>Start</button>
-        </div>
-
-    </div>
-
+    <p style="margin-top:15px;">
+        Already have an account?
+        <a href="/" style="color:#00ff99;">Login</a>
+    </p>
 </div>
 
 {% endblock %}
