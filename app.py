@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, redirect, session, make_response
 
 app = Flask(__name__)
@@ -25,8 +26,6 @@ def login():
 # ===================== REGISTER =====================
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    error = None
-
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -85,7 +84,7 @@ def game1():
     return response
 
 
-# ===================== GAME 2 (Locked Until Game 1 Solved) =====================
+# ===================== GAME 2 =====================
 @app.route("/game2")
 def game2():
     if not session.get("game1_solved"):
@@ -94,6 +93,7 @@ def game2():
     return render_template("game2.html")
 
 
-# ===================== RUN =====================
+# ===================== RUN (Render Compatible) =====================
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
