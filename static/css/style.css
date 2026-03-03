@@ -182,3 +182,21 @@ body {
     color: red;
     margin-top: 10px;
 }
+
+/* Password Eye */
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    width: 100%;
+}
+
+.eye {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #00ff99;
+}

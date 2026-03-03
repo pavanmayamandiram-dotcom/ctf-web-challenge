@@ -9,28 +9,51 @@
 <script src="{{ url_for('static', filename='js/matrix.js') }}"></script>
 
 <div class="auth-container">
-
     <div class="auth-box">
         <h2>Create Account</h2>
 
-        <form method="POST">
+        <form method="POST" onsubmit="return validatePassword()">
+
             <input type="text" name="username" placeholder="Username" required>
 
-            <input type="password" name="password" placeholder="Password" required>
+            <div class="password-wrapper">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <span onclick="togglePassword('password')" class="eye">👁</span>
+            </div>
 
-            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            <div class="password-wrapper">
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+                <span onclick="togglePassword('confirm_password')" class="eye">👁</span>
+            </div>
 
             <button type="submit">Register</button>
         </form>
 
-        {% if error %}
-            <div class="error">{{ error }}</div>
-        {% endif %}
+        <div id="error-message" class="error">
+            {% if error %}{{ error }}{% endif %}
+        </div>
 
         <p>Already have account? <a href="/">Login</a></p>
     </div>
-
 </div>
+
+<script>
+function togglePassword(id) {
+    const field = document.getElementById(id);
+    field.type = field.type === "password" ? "text" : "password";
+}
+
+function validatePassword() {
+    const pass = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm_password").value;
+
+    if (pass !== confirm) {
+        document.getElementById("error-message").innerText = "Passwords do not match!";
+        return false;
+    }
+    return true;
+}
+</script>
 
 </body>
 </html>
