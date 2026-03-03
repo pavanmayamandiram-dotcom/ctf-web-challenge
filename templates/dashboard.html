@@ -3,42 +3,65 @@
 {% block content %}
 
 <div class="dashboard">
+
     <h1>OFFENZO CTF - Dashboard</h1>
     <p class="subtitle">Select Your Challenge</p>
 
     <div class="cards">
 
+        <!-- Game 1 -->
         <div class="card">
-            <h3>1. SQL Injection</h3>
+            <h3>1. Broken Access Control</h3>
             <p>Difficulty: Easy</p>
-            <button>Start</button>
+            <a href="/game1">
+                <button>Start</button>
+            </a>
         </div>
 
+        <!-- Game 2 -->
         <div class="card">
             <h3>2. XSS Attack</h3>
             <p>Difficulty: Medium</p>
             <button>Start</button>
         </div>
 
+        <!-- Game 3 -->
         <div class="card">
             <h3>3. Cryptography Vault</h3>
             <p>Difficulty: Medium</p>
             <button>Start</button>
         </div>
 
+        <!-- Game 4 -->
         <div class="card">
             <h3>4. API Misconfiguration</h3>
             <p>Difficulty: Hard</p>
             <button>Start</button>
         </div>
 
+        <!-- Game 5 -->
         <div class="card">
             <h3>5. Reverse Engineering</h3>
             <p>Difficulty: Expert</p>
             <button>Start</button>
         </div>
 
+        <!-- Game 6 -->
+        <div class="card">
+            <h3>6. Hidden File Discovery</h3>
+            <p>Difficulty: Medium</p>
+            <button>Start</button>
+        </div>
+
+        <!-- Game 7 -->
+        <div class="card">
+            <h3>7. Logic Bypass</h3>
+            <p>Difficulty: Hard</p>
+            <button>Start</button>
+        </div>
+
     </div>
+
 </div>
 
 {% endblock %}
