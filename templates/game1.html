@@ -1,10 +1,21 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="container">
-    <div class="dashboard-box">
-        <h2>Game 1 - Admin Panel</h2>
-        <p>Only admins can view the flag.</p>
-        <p>Access Denied.</p>
-    </div>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<script src="{{ url_for('static', filename='js/matrix.js') }}"></script>
+
+<h2>Game 1 - Admin Panel</h2>
+
+{% if is_admin %}
+    <p class="flag">FLAG{cookie_admin_access_success}</p>
+{% else %}
+    <p>Only admins can view the flag.</p>
+    <p style="color:red;">Access Denied.</p>
+{% endif %}
+
+</body>
+</html>
