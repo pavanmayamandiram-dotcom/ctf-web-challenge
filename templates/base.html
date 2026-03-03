@@ -24,17 +24,17 @@ window.addEventListener("resize", resizeCanvas);
 
 const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const fontSize = 14;
-let columns = canvas.width / fontSize;
-let drops = [];
+let columns;
+let drops;
 
-function initDrops() {
-    columns = canvas.width / fontSize;
+function initMatrix() {
+    columns = Math.floor(canvas.width / fontSize);
     drops = [];
-    for (let x = 0; x < columns; x++) {
-        drops[x] = 1;
+    for (let i = 0; i < columns; i++) {
+        drops[i] = 1;
     }
 }
-initDrops();
+initMatrix();
 
 function draw() {
     ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
@@ -47,14 +47,20 @@ function draw() {
         const text = letters.charAt(Math.floor(Math.random() * letters.length));
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
             drops[i] = 0;
+        }
 
         drops[i]++;
     }
 }
 
 setInterval(draw, 60);
+
+window.addEventListener("resize", function () {
+    resizeCanvas();
+    initMatrix();
+});
 </script>
 
 </body>
