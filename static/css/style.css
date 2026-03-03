@@ -93,3 +93,38 @@ canvas {
     color: #00ff99;
     text-shadow: 0 0 15px #00ff99;
 }
+
+/* Center Any Page Content */
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.register-box {
+    background: #111;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px #00ff99;
+    width: 350px;
+    text-align: center;
+}
+
+.register-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #000;
+    border: 1px solid #00ff99;
+    color: #00ff99;
+}
+
+.register-box button {
+    width: 100%;
+    padding: 10px;
+    background: #00ff99;
+    border: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
