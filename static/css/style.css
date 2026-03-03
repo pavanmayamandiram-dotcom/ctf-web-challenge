@@ -200,3 +200,74 @@ body {
     cursor: pointer;
     color: #00ff99;
 }
+
+/* Dashboard Layout */
+.dashboard-container {
+    padding: 40px;
+    position: relative;
+}
+
+.welcome-text {
+    color: #00ff99;
+    margin-bottom: 30px;
+}
+
+/* Hacker Guide */
+.hacker-guide {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.hacker-img {
+    width: 120px;
+}
+
+.speech-box {
+    background: #111;
+    border: 2px solid #00ff99;
+    padding: 15px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 0 15px #00ff99;
+}
+
+.speech-box p {
+    margin: 0;
+    font-size: 14px;
+    color: #00ff99;
+}
+
+/* Games Grid */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.game-card {
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #00ff99;
+}
+
+.game-card h3 {
+    color: #00ff99;
+}
+
+.game-card button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: #00ff99;
+    border: none;
+    cursor: pointer;
+}
+
+.locked button {
+    background: gray;
+}
