@@ -17,14 +17,17 @@ except:
 # LOGIN
 @app.route("/", methods=["GET", "POST"])
 def login():
+
     if request.method == "POST":
 
         username = request.form["username"]
         password = request.form["password"]
 
         if username in users and users[username] == password:
+
             session["username"] = username
             session["game1_solved"] = False
+
             return redirect("/dashboard")
 
         return render_template("login.html", error="Invalid username or password")
@@ -85,6 +88,10 @@ def game1():
         if role == "admin":
             access_granted = True
             message = "Admin Privileges Confirmed"
+
+            # Unlock Game 2
+            session["game1_solved"] = True
+
         else:
             message = "Access Denied"
 
@@ -106,10 +113,10 @@ def game1():
 def submit_flag1():
 
     submitted_flag = request.form["flag"].strip()
-
     correct_flag = "FLAG{broken_access_control_cookie}"
 
     if submitted_flag == correct_flag:
+
         session["game1_solved"] = True
         return render_template("success1.html")
 
@@ -139,6 +146,10 @@ def game2():
         username = request.form.get("username")
         password = request.form.get("password")
 
+        # Simulated SQL query
+        query = f"SELECT * FROM users WHERE username='{username}' AND password='{password}'"
+
+        # SQL Injection vulnerability
         if username and "admin" in username:
             flag = "FLAG{sql_authentication_bypass}"
         else:
@@ -147,6 +158,8 @@ def game2():
     return render_template("game2.html", error=error, flag=flag)
 
 
+# RUN APP
 if __name__ == "__main__":
+
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
