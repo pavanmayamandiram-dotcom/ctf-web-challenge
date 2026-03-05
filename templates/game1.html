@@ -18,10 +18,10 @@ FLAG{broken_access_control_cookie}
 </div><div style="margin-top:40px;">
 <img src="{{ url_for('static', filename='images/hacker.png') }}" style="width:120px;">
 <p>👍 Nice work! You gained admin access.</p>
-</div><div style="margin-top:50px;"><h3>Submit the Flag</h3><p>Paste the flag you discovered:</p><form method="POST" action="/submit_flag1"><input
+</div><div style="margin-top:50px;"><h3>Submit the Flag</h3><form method="POST" action="/submit_flag1"><input
 type="text"
 name="flag"
-placeholder="FLAG{______________________}"
+placeholder="FLAG{________________}"
 style="
 padding:12px;
 width:400px;
@@ -40,7 +40,7 @@ Submit Flag
 </button></form></div>{% else %}
 
 <p style="margin-top:30px; color:red;">
-Access Denied. Only administrators can view the admin panel.
+Access Denied. Only administrators can view this panel.
 </p><form method="POST">
 <button style="padding:10px 20px; margin-top:20px;">
 Check Access
