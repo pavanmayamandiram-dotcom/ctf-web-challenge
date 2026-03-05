@@ -29,17 +29,17 @@ Hint: Sometimes systems trust data that comes from the client.
 
 </div>
 
+
 <h2>System Access Panel</h2>
 
 <h3>Current Role: {{ role }}</h3>
 <h3>Status: {{ message }}</h3>
 
 
-{% if role == "admin" %}
-
 <div style="margin-top:25px; padding:15px; border:2px solid #00ff88; display:inline-block; font-size:20px;">
 FLAG{broken_access_control_cookie}
 </div>
+
 
 <div style="margin-top:40px;">
 <img src="{{ url_for('static', filename='images/hacker.png') }}" style="width:120px;">
@@ -84,15 +84,6 @@ Submit Answer
 
 </div>
 
-{% else %}
-
-<form method="POST">
-<button style="padding:10px 20px; margin-top:20px;">
-Validate Credentials
-</button>
-</form>
-
-{% endif %}
 
 <br><br>
 <a href="/dashboard" style="color:#00ff88;">⬅ Back to Dashboard</a>
