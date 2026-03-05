@@ -35,6 +35,7 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
+
         username = request.form["username"]
         password = request.form["password"]
         confirm = request.form["confirm_password"]
@@ -47,7 +48,7 @@ def register():
 
         users[username] = password
 
-        # save users to file
+        # Save users permanently
         with open(USERS_FILE, "w") as f:
             json.dump(users, f)
 
@@ -59,6 +60,7 @@ def register():
 # ===================== DASHBOARD =====================
 @app.route("/dashboard")
 def dashboard():
+
     if "username" not in session:
         return redirect("/")
 
@@ -71,15 +73,18 @@ def dashboard():
 # ===================== GAME 1 =====================
 @app.route("/game1", methods=["GET", "POST"])
 def game1():
+
     role = request.cookies.get("role", "guest")
 
     access_granted = False
     message = "Access Restricted"
 
     if request.method == "POST":
+
         if role == "admin":
             access_granted = True
             message = "Admin Privileges Confirmed"
+
         else:
             message = "Access Denied"
 
@@ -100,7 +105,7 @@ def game1():
 @app.route("/submit_flag1", methods=["POST"])
 def submit_flag1():
 
-    submitted_flag = request.form["flag"]
+    submitted_flag = request.form["flag"].strip()
 
     correct_flag = "FLAG{broken_access_control_cookie}"
 
@@ -110,7 +115,12 @@ def submit_flag1():
 
         return render_template("success1.html")
 
-    return "Incorrect flag. Try again."
+    return render_template(
+        "game1.html",
+        role="guest",
+        access_granted=True,
+        message="Incorrect Flag. Try Again."
+    )
 
 
 # ===================== GAME 2 =====================
