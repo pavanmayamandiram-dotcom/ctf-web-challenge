@@ -29,31 +29,32 @@ Hint: Sometimes systems trust data that comes from the client.
 
 </div>
 
-
 <h2>System Access Panel</h2>
 
 <h3>Current Role: {{ role }}</h3>
 <h3>Status: {{ message }}</h3>
 
 
+{% if role == "admin" %}
+
+<!-- FLAG ONLY FOR ADMIN -->
 <div style="margin-top:25px; padding:15px; border:2px solid #00ff88; display:inline-block; font-size:20px;">
 FLAG{broken_access_control_cookie}
 </div>
 
-
 <div style="margin-top:40px;">
 <img src="{{ url_for('static', filename='images/hacker.png') }}" style="width:120px;">
-<p>👍 Nice work! You exploited Broken Access Control.</p>
+<p>👍 Nice work! You gained admin access.</p>
 </div>
 
-
+<!-- FLAG SUBMISSION -->
 <div style="margin-top:50px; width:700px; margin-left:auto; margin-right:auto;">
 
-<h3>Challenge Question</h3>
+<h3>Submit the Flag</h3>
 
 <p>
-You have successfully accessed the restricted admin panel.
-Copy the flag revealed above and submit it below to complete the mission.
+You successfully accessed the admin panel.
+Enter the flag below to complete Mission 1.
 </p>
 
 <form method="POST" action="/submit_flag1">
@@ -61,7 +62,7 @@ Copy the flag revealed above and submit it below to complete the mission.
 <input
 type="text"
 name="flag"
-placeholder="FLAG{_____________________________}"
+placeholder="FLAG{________________________}"
 style="
 padding:12px;
 width:400px;
@@ -77,13 +78,26 @@ required>
 <br><br>
 
 <button style="padding:10px 25px; font-size:15px;">
-Submit Answer
+Submit Flag
 </button>
 
 </form>
 
 </div>
 
+{% else %}
+
+<p style="margin-top:40px; color:red;">
+Access Denied. Only administrators can view this panel.
+</p>
+
+<form method="POST">
+<button style="padding:10px 20px; margin-top:20px;">
+Validate Credentials
+</button>
+</form>
+
+{% endif %}
 
 <br><br>
 <a href="/dashboard" style="color:#00ff88;">⬅ Back to Dashboard</a>
