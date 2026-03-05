@@ -1,68 +1,27 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html>
 <head>
-    <title>Game 1 - Broken Access Control</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-
-<body style="background:black; color:#00ff88; text-align:center; padding-top:80px;">
-
-<script src="{{ url_for('static', filename='js/matrix.js') }}"></script>
-
-<h1>🔐 Mission 1: Broken Access Control</h1>
-
-<div style="width:700px; margin:auto; margin-bottom:40px;">
-
-<p>
+<title>Game 1 - Broken Access Control</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head><body style="background:black; color:#00ff88; text-align:center; padding-top:80px;"><script src="{{ url_for('static', filename='js/matrix.js') }}"></script><h1>🔐 Mission 1: Broken Access Control</h1><div style="width:700px; margin:auto; margin-bottom:40px;"><p>
 A restricted administrative control panel protects sensitive system data.
 However, something about the way user roles are verified may not be fully secure.
-</p>
-
-<p>
+</p><p>
 Your objective is to investigate how access privileges are validated and gain
 administrative access to retrieve the hidden flag.
-</p>
-
-<p style="opacity:0.7;">
+</p><p style="opacity:0.7;">
 Hint: Sometimes systems trust data that comes from the client.
-</p>
+</p></div><h2>System Access Panel</h2><h3>Current Role: {{ role }}</h3>
+<h3>Status: {{ message }}</h3>{% if role == "admin" %}
 
-</div>
-
-<h2>System Access Panel</h2>
-
-<h3>Current Role: {{ role }}</h3>
-<h3>Status: {{ message }}</h3>
-
-
-{% if role == "admin" %}
-
-<!-- FLAG ONLY FOR ADMIN -->
 <div style="margin-top:25px; padding:15px; border:2px solid #00ff88; display:inline-block; font-size:20px;">
 FLAG{broken_access_control_cookie}
-</div>
-
-<div style="margin-top:40px;">
+</div><div style="margin-top:40px;">
 <img src="{{ url_for('static', filename='images/hacker.png') }}" style="width:120px;">
 <p>👍 Nice work! You gained admin access.</p>
-</div>
-
-<!-- FLAG SUBMISSION -->
-<div style="margin-top:50px; width:700px; margin-left:auto; margin-right:auto;">
-
-<h3>Submit the Flag</h3>
-
-<p>
-You successfully accessed the admin panel.
-Enter the flag below to complete Mission 1.
-</p>
-
-<form method="POST" action="/submit_flag1">
-
-<input
+</div><div style="margin-top:50px;"><h3>Submit the Flag</h3><p>Paste the flag you discovered:</p><form method="POST" action="/submit_flag1"><input
 type="text"
 name="flag"
-placeholder="FLAG{________________________}"
+placeholder="FLAG{______________________}"
 style="
 padding:12px;
 width:400px;
@@ -71,33 +30,22 @@ font-size:16px;
 border:2px solid #00ff88;
 background:black;
 color:#00ff88;
-margin-top:20px;
 "
 required>
 
 <br><br>
 
-<button style="padding:10px 25px; font-size:15px;">
+<button style="padding:10px 25px;">
 Submit Flag
-</button>
+</button></form></div>{% else %}
 
-</form>
-
-</div>
-
-{% else %}
-
-<p style="margin-top:40px; color:red;">
-Access Denied. Only administrators can view this panel.
-</p>
-
-<form method="POST">
+<p style="margin-top:30px; color:red;">
+Access Denied. Only administrators can view the admin panel.
+</p><form method="POST">
 <button style="padding:10px 20px; margin-top:20px;">
-Validate Credentials
+Check Access
 </button>
-</form>
-
-{% endif %}
+</form>{% endif %}
 
 <br><br>
 <a href="/dashboard" style="color:#00ff88;">⬅ Back to Dashboard</a>
