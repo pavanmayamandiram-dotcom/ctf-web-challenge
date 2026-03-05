@@ -1,10 +1,18 @@
 import os
+import json
 from flask import Flask, render_template, request, redirect, session, make_response
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
 
-users = {}
+# ===================== USER STORAGE =====================
+USERS_FILE = "users.json"
+
+try:
+    with open(USERS_FILE, "r") as f:
+        users = json.load(f)
+except:
+    users = {}
 
 # ===================== LOGIN =====================
 @app.route("/", methods=["GET", "POST"])
@@ -38,6 +46,11 @@ def register():
             return render_template("register.html", error="Username already exists!")
 
         users[username] = password
+
+        # save users to file
+        with open(USERS_FILE, "w") as f:
+            json.dump(users, f)
+
         return redirect("/")
 
     return render_template("register.html")
@@ -67,7 +80,6 @@ def game1():
         if role == "admin":
             access_granted = True
             message = "Admin Privileges Confirmed"
-            session["game1_solved"] = True
         else:
             message = "Access Denied"
 
@@ -84,9 +96,27 @@ def game1():
     return response
 
 
+# ===================== FLAG SUBMISSION =====================
+@app.route("/submit_flag1", methods=["POST"])
+def submit_flag1():
+
+    submitted_flag = request.form["flag"]
+
+    correct_flag = "FLAG{broken_access_control_cookie}"
+
+    if submitted_flag == correct_flag:
+
+        session["game1_solved"] = True
+
+        return render_template("success1.html")
+
+    return "Incorrect flag. Try again."
+
+
 # ===================== GAME 2 =====================
 @app.route("/game2")
 def game2():
+
     if not session.get("game1_solved"):
         return redirect("/dashboard")
 

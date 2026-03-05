@@ -5,27 +5,86 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body style="background:black; color:#00ff88; text-align:center; padding-top:100px;">
+<body style="background:black; color:#00ff88; text-align:center; padding-top:80px;">
 
-    <h1>🔐 System Access Panel</h1>
+<h1>🔐 Mission 1: Broken Access Control</h1>
 
-    <h2>Current Role: {{ role }}</h2>
-    <h3>Status: {{ message }}</h3>
+<div style="width:700px; margin:auto; margin-bottom:40px;">
 
-    {% if access_granted %}
-        <div style="margin-top:20px; padding:15px; border:2px solid #00ff88; display:inline-block;">
-            FLAG{broken_access_control_cookie}
-        </div>
-    {% else %}
-        <form method="POST">
-            <button style="padding:10px 20px; margin-top:20px;">
-                Validate Credentials
-            </button>
-        </form>
-    {% endif %}
+<p>
+A restricted administrative control panel protects sensitive system data.
+However, something about the way user roles are verified may not be fully secure.
+</p>
 
-    <br><br>
-    <a href="/dashboard" style="color:#00ff88;">⬅ Back to Dashboard</a>
+<p>
+Your objective is to investigate how access privileges are validated and gain
+administrative access to retrieve the hidden flag.
+</p>
+
+<p style="opacity:0.7;">
+Hint: Sometimes systems trust data that comes from the client.
+</p>
+
+</div>
+
+
+<h2>System Access Panel</h2>
+
+<h3>Current Role: {{ role }}</h3>
+<h3>Status: {{ message }}</h3>
+
+
+{% if access_granted %}
+
+<div style="margin-top:25px; padding:15px; border:2px solid #00ff88; display:inline-block; font-size:20px;">
+FLAG{broken_access_control_cookie}
+</div>
+
+
+<!-- Hacker congratulation -->
+<div style="margin-top:40px;">
+<img src="{{ url_for('static', filename='images/hacker.png') }}" style="width:120px;">
+<p>👍 Nice work! You exploited Broken Access Control.</p>
+</div>
+
+
+<!-- Flag Submission -->
+<div style="margin-top:40px;">
+
+<h3>Submit the Flag</h3>
+
+<form method="POST" action="/submit_flag1">
+
+<input
+type="text"
+name="flag"
+placeholder="Paste the flag here"
+style="padding:10px; width:300px; text-align:center;"
+required>
+
+<br><br>
+
+<button style="padding:10px 20px;">
+Submit Flag
+</button>
+
+</form>
+
+</div>
+
+{% else %}
+
+<form method="POST">
+<button style="padding:10px 20px; margin-top:20px;">
+Validate Credentials
+</button>
+</form>
+
+{% endif %}
+
+
+<br><br>
+<a href="/dashboard" style="color:#00ff88;">⬅ Back to Dashboard</a>
 
 </body>
 </html>
