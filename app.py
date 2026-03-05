@@ -86,7 +86,6 @@ if request.method == "POST":
     if role == "admin":
         access_granted = True
         message = "Admin Privileges Confirmed"
-
     else:
         message = "Access Denied"
 
@@ -108,13 +107,11 @@ return response
 def submit_flag1():
 
 submitted_flag = request.form["flag"].strip()
-
 correct_flag = "FLAG{broken_access_control_cookie}"
 
 if submitted_flag == correct_flag:
 
     session["game1_solved"] = True
-
     return render_template("success1.html")
 
 return render_template(
@@ -129,6 +126,9 @@ return render_template(
 @app.route("/game2", methods=["GET", "POST"])
 def game2():
 
+if "username" not in session:
+    return redirect("/")
+
 if not session.get("game1_solved"):
     return redirect("/dashboard")
 
@@ -137,14 +137,14 @@ flag = None
 
 if request.method == "POST":
 
-    username = request.form["username"]
-    password = request.form["password"]
+    username = request.form.get("username")
+    password = request.form.get("password")
 
     # Simulated vulnerable SQL query
     query = f"SELECT * FROM users WHERE username='{username}' AND password='{password}'"
 
     # SQL Injection vulnerability
-    if "admin' --" in username:
+    if username and "admin' --" in username:
         flag = "FLAG{sql_authentication_bypass}"
     else:
         error = "Invalid username or password"
