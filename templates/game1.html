@@ -29,28 +29,24 @@ Hint: Sometimes systems trust data that comes from the client.
 
 </div>
 
-
 <h2>System Access Panel</h2>
 
 <h3>Current Role: {{ role }}</h3>
 <h3>Status: {{ message }}</h3>
 
 
-{% if access_granted %}
+{% if role == "admin" %}
 
 <div style="margin-top:25px; padding:15px; border:2px solid #00ff88; display:inline-block; font-size:20px;">
 FLAG{broken_access_control_cookie}
 </div>
 
-
-<!-- Hacker congratulation -->
 <div style="margin-top:40px;">
 <img src="{{ url_for('static', filename='images/hacker.png') }}" style="width:120px;">
 <p>👍 Nice work! You exploited Broken Access Control.</p>
 </div>
 
 
-<!-- QUESTION SECTION -->
 <div style="margin-top:50px; width:700px; margin-left:auto; margin-right:auto;">
 
 <h3>Challenge Question</h3>
@@ -97,7 +93,6 @@ Validate Credentials
 </form>
 
 {% endif %}
-
 
 <br><br>
 <a href="/dashboard" style="color:#00ff88;">⬅ Back to Dashboard</a>
