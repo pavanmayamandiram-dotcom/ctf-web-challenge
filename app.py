@@ -74,7 +74,7 @@ def dashboard():
     )
 
 
-# GAME 1
+# GAME 1 (Broken Access Control)
 @app.route("/game1", methods=["GET", "POST"])
 def game1():
 
@@ -86,6 +86,7 @@ def game1():
     if request.method == "POST":
 
         if role == "admin":
+
             access_granted = True
             message = "Admin Privileges Confirmed"
 
@@ -108,26 +109,6 @@ def game1():
     return response
 
 
-# FLAG SUBMISSION
-@app.route("/submit_flag1", methods=["POST"])
-def submit_flag1():
-
-    submitted_flag = request.form["flag"].strip()
-    correct_flag = "FLAG{broken_access_control_cookie}"
-
-    if submitted_flag == correct_flag:
-
-        session["game1_solved"] = True
-        return render_template("success1.html")
-
-    return render_template(
-        "game1.html",
-        role="guest",
-        access_granted=True,
-        message="Incorrect Flag. Try Again."
-    )
-
-
 # GAME 2 (SQL Injection)
 @app.route("/game2", methods=["GET", "POST"])
 def game2():
@@ -146,7 +127,7 @@ def game2():
         username = request.form.get("username")
         password = request.form.get("password")
 
-        # Simulated SQL query
+        # Simulated vulnerable SQL query
         query = f"SELECT * FROM users WHERE username='{username}' AND password='{password}'"
 
         # SQL Injection vulnerability
