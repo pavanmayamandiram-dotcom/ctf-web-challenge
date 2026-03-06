@@ -1,109 +1,184 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
+
 <body>
 
 <script src="{{ url_for('static', filename='js/matrix.js') }}"></script>
 
 <div class="dashboard-container">
 
-    <h1 class="welcome-text">
-        Welcome {{ session.get('username') }}
-    </h1>
+<h1 class="welcome-text">
+Welcome {{ session.get('username') }}
+</h1>
 
-    <!-- Hacker Guide -->
-    <div class="hacker-guide">
-        <img src="{{ url_for('static', filename='images/hacker.png') }}" class="hacker-img">
+<!-- Hacker Guide -->
 
-        <div class="speech-box">
-            <p id="guideText"></p>
-        </div>
-    </div>
+<div class="hacker-guide">
 
-    <!-- Game Cards -->
-    <div class="games-grid">
+<img src="{{ url_for('static', filename='images/hacker.png') }}" class="hacker-img">
 
-        <!-- GAME 1 -->
-        <div class="game-card">
-            <h3>1. Broken Access Control</h3>
-            <p>Difficulty: Easy</p>
-            <a href="/game1"><button>Start</button></a>
-        </div>
-
-        <!-- GAME 2 (UNLOCK AFTER GAME 1) -->
-        <div class="game-card {% if not game1_solved %}locked{% endif %}">
-            <h3>2. SQL Injection</h3>
-            <p>Difficulty: Medium</p>
-
-            {% if game1_solved %}
-                <a href="/game2"><button>Start</button></a>
-            {% else %}
-                <button disabled>Locked</button>
-            {% endif %}
-        </div>
-
-        <!-- GAME 3 -->
-        <div class="game-card locked">
-            <h3>3. XSS Lab</h3>
-            <p>Difficulty: Medium</p>
-            <button disabled>Locked</button>
-        </div>
-
-        <!-- GAME 4 -->
-        <div class="game-card locked">
-            <h3>4. File Inclusion</h3>
-            <p>Difficulty: Hard</p>
-            <button disabled>Locked</button>
-        </div>
-
-        <!-- GAME 5 -->
-        <div class="game-card locked">
-            <h3>5. Admin Portal</h3>
-            <p>Difficulty: Hard</p>
-            <button disabled>Locked</button>
-        </div>
-
-        <!-- GAME 6 -->
-        <div class="game-card locked">
-            <h3>6. Cryptography Vault</h3>
-            <p>Difficulty: Medium</p>
-            <button disabled>Locked</button>
-        </div>
-
-        <!-- GAME 7 -->
-        <div class="game-card locked">
-            <h3>7. Reverse Engineering</h3>
-            <p>Difficulty: Expert</p>
-            <button disabled>Locked</button>
-        </div>
-
-    </div>
+<div class="speech-box">
+<p id="guideText"></p>
+</div>
 
 </div>
 
+<!-- GAME GRID -->
+
+<div class="games-grid">
+
+<!-- GAME 1 -->
+
+<div class="game-card">
+
+<h3>1. Broken Access Control</h3>
+
+<p>Difficulty: Easy</p>
+
+<a href="/game1">
+<button>Start</button>
+</a>
+
+</div>
+
+
+<!-- GAME 2 -->
+
+<div class="game-card {% if not session.get('game1_solved') %}locked{% endif %}">
+
+<h3>2. SQL Injection</h3>
+
+<p>Difficulty: Medium</p>
+
+{% if session.get('game1_solved') %}
+
+<a href="/game2">
+<button>Start</button>
+</a>
+
+{% else %}
+
+<button disabled>Locked</button>
+
+{% endif %}
+
+</div>
+
+
+<!-- GAME 3 -->
+
+<div class="game-card locked">
+
+<h3>3. XSS Lab</h3>
+
+<p>Difficulty: Medium</p>
+
+<button disabled>Locked</button>
+
+</div>
+
+
+<!-- GAME 4 -->
+
+<div class="game-card locked">
+
+<h3>4. File Inclusion</h3>
+
+<p>Difficulty: Hard</p>
+
+<button disabled>Locked</button>
+
+</div>
+
+
+<!-- GAME 5 -->
+
+<div class="game-card locked">
+
+<h3>5. Admin Portal</h3>
+
+<p>Difficulty: Hard</p>
+
+<button disabled>Locked</button>
+
+</div>
+
+
+<!-- GAME 6 -->
+
+<div class="game-card locked">
+
+<h3>6. Cryptography Vault</h3>
+
+<p>Difficulty: Medium</p>
+
+<button disabled>Locked</button>
+
+</div>
+
+
+<!-- GAME 7 -->
+
+<div class="game-card locked">
+
+<h3>7. Reverse Engineering</h3>
+
+<p>Difficulty: Expert</p>
+
+<button disabled>Locked</button>
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
+
 const text = "Welcome to Offenzo CTF. Begin with Broken Access Control. Observe carefully. Think like an attacker.";
+
 let i = 0;
 
 function typeEffect() {
-    if (i < text.length) {
-        document.getElementById("guideText").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeEffect, 35);
-    }
+
+if (i < text.length) {
+
+document.getElementById("guideText").innerHTML += text.charAt(i);
+
+i++;
+
+setTimeout(typeEffect, 35);
+
+}
+
 }
 
 window.onload = function() {
-    if (!sessionStorage.getItem("guideShown")) {
-        typeEffect();
-        sessionStorage.setItem("guideShown", "true");
-    } else {
-        document.getElementById("guideText").innerHTML = text;
-    }
+
+if (!sessionStorage.getItem("guideShown")) {
+
+typeEffect();
+
+sessionStorage.setItem("guideShown", "true");
+
+}
+
+else {
+
+document.getElementById("guideText").innerHTML = text;
+
+}
+
 };
+
 </script>
 
 </body>
