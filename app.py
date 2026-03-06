@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, redirect, session, make_respo
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
 
-# USER STORAGE
+# ================= USER STORAGE =================
 USERS_FILE = "users.json"
 
 try:
@@ -14,7 +14,7 @@ try:
 except:
     users = {}
 
-# LOGIN
+# ================= LOGIN =================
 @app.route("/", methods=["GET", "POST"])
 def login():
 
@@ -35,7 +35,7 @@ def login():
     return render_template("login.html")
 
 
-# REGISTER
+# ================= REGISTER =================
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
@@ -61,7 +61,7 @@ def register():
     return render_template("register.html")
 
 
-# DASHBOARD
+# ================= DASHBOARD =================
 @app.route("/dashboard")
 def dashboard():
 
@@ -74,7 +74,7 @@ def dashboard():
     )
 
 
-# GAME 1 (Broken Access Control)
+# ================= GAME 1 (Broken Access Control) =================
 @app.route("/game1", methods=["GET", "POST"])
 def game1():
 
@@ -90,8 +90,11 @@ def game1():
             access_granted = True
             message = "Admin Privileges Confirmed"
 
-            # Unlock Game 2
+            # unlock Game 2
             session["game1_solved"] = True
+
+            # redirect to dashboard so unlock appears
+            return redirect("/dashboard")
 
         else:
             message = "Access Denied"
@@ -109,7 +112,7 @@ def game1():
     return response
 
 
-# GAME 2 (SQL Injection)
+# ================= GAME 2 (SQL Injection) =================
 @app.route("/game2", methods=["GET", "POST"])
 def game2():
 
@@ -139,7 +142,7 @@ def game2():
     return render_template("game2.html", error=error, flag=flag)
 
 
-# RUN APP
+# ================= RUN APP =================
 if __name__ == "__main__":
 
     port = int(os.environ.get("PORT", 10000))
