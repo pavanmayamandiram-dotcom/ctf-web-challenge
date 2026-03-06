@@ -1,44 +1,90 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html>
+
 <head>
 <title>Mission 2 - SQL Injection</title>
+
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head><body style="background:black; color:#00ff88; text-align:center; padding-top:80px;"><script src="{{ url_for('static', filename='js/matrix.js') }}"></script><h1>💉 Mission 2: SQL Injection</h1><div style="width:700px; margin:auto; margin-bottom:40px;"><p>
+
+</head>
+
+<body style="background:black; color:#00ff88; text-align:center; padding-top:80px;">
+
+<script src="{{ url_for('static', filename='js/matrix.js') }}"></script>
+
+<h1>💉 Mission 2: SQL Injection</h1>
+
+<div style="width:700px; margin:auto; margin-bottom:40px;">
+
+<p>
 The Offenzo corporate database is protected by a login portal used by internal employees.
 Your objective is to bypass the authentication mechanism and access the protected database.
-</p><p>
+</p>
+
+<p>
 Some poorly designed systems directly insert user input into SQL queries.
 If this happens, attackers may manipulate the query to gain unauthorized access.
-</p><p style="opacity:0.7;">
+</p>
+
+<p style="opacity:0.7;">
 Hint: Sometimes part of the SQL query can be turned into a comment.
-</p></div><h2>Corporate Database Login</h2><form method="POST"><input 
-type="text" 
-name="username" 
+</p>
+
+</div>
+
+<h2>Corporate Database Login</h2>
+
+<form method="POST" action="/game2">
+
+<input
+type="text"
+name="username"
 placeholder="Username"
+required
 style="padding:10px;width:260px;background:black;color:#00ff88;border:2px solid #00ff88;">
+
 <br><br>
 
-<input 
-type="password" 
-name="password" 
+<input
+type="password"
+name="password"
 placeholder="Password"
+required
 style="padding:10px;width:260px;background:black;color:#00ff88;border:2px solid #00ff88;">
+
 <br><br>
 
-<button style="padding:10px 25px;">
+<button type="submit" style="padding:10px 25px;">
 Login
-</button></form>{% if error %}
+</button>
 
-<p style="color:red; margin-top:20px;">{{ error }}</p>
-{% endif %}{% if flag %}
+</form>
+
+
+{% if error %}
+
+<p style="color:red; margin-top:20px;">
+{{ error }}
+</p>
+
+{% endif %}
+
+
+{% if flag %}
 
 <div style="margin-top:30px;padding:15px;border:2px solid #00ff88;display:inline-block;font-size:18px;">
 {{ flag }}
-</div><div style="margin-top:30px;">
+</div>
+
+<div style="margin-top:30px;">
 <img src="{{ url_for('static', filename='images/hacker.png') }}" style="width:120px;">
 <p>🔥 SQL Injection Successful! Authentication bypass achieved.</p>
-</div>{% endif %}
+</div>
+
+{% endif %}
 
 <br><br>
+
 <a href="/dashboard" style="color:#00ff88;">⬅ Back to Dashboard</a>
 
 </body>

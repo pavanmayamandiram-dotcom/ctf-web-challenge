@@ -26,7 +26,10 @@ def login():
         if username in users and users[username] == password:
 
             session["username"] = username
-            session["game1_solved"] = False
+
+            # Only initialize once
+            if "game1_solved" not in session:
+                session["game1_solved"] = False
 
             return redirect("/dashboard")
 
@@ -90,10 +93,9 @@ def game1():
             access_granted = True
             message = "Admin Privileges Confirmed"
 
-            # unlock Game 2
+            # Unlock Game 2
             session["game1_solved"] = True
 
-            # redirect to dashboard so unlock appears
             return redirect("/dashboard")
 
         else:
