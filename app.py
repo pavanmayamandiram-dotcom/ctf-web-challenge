@@ -27,7 +27,7 @@ def login():
 
             session["username"] = username
 
-            # Only initialize once
+            # Initialize challenge progress
             if "game1_solved" not in session:
                 session["game1_solved"] = False
 
@@ -86,19 +86,17 @@ def game1():
     access_granted = False
     message = "Access Restricted"
 
+    # Detect admin cookie automatically
+    if role == "admin":
+        access_granted = True
+        message = "Admin Privileges Confirmed"
+
+        # Unlock Game 2
+        session["game1_solved"] = True
+
     if request.method == "POST":
 
-        if role == "admin":
-
-            access_granted = True
-            message = "Admin Privileges Confirmed"
-
-            # Unlock Game 2
-            session["game1_solved"] = True
-
-            return redirect("/dashboard")
-
-        else:
+        if role != "admin":
             message = "Access Denied"
 
     response = make_response(render_template(
@@ -121,6 +119,7 @@ def game2():
     if "username" not in session:
         return redirect("/")
 
+    # Only unlocked after Game 1
     if not session.get("game1_solved"):
         return redirect("/dashboard")
 
@@ -135,7 +134,7 @@ def game2():
         # Simulated vulnerable SQL query
         query = f"SELECT * FROM users WHERE username='{username}' AND password='{password}'"
 
-        # SQL Injection vulnerability
+        # SQL Injection vulnerability simulation
         if username and "admin" in username:
             flag = "FLAG{sql_authentication_bypass}"
         else:
